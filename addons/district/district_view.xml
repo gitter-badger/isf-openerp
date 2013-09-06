@@ -1,0 +1,270 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+<!--
+############################# ZONES #############################
+-->
+    
+<!-- District Zone Form View -->
+<record model="ir.ui.view" id="view_district_zone_form">
+	<field name="name">district.zone.form</field>
+	<field name="model">district.zone</field>
+	<field name="arch" type="xml">
+		<form string="Zones" version="7.0">
+                <sheet>
+                    <label for="code" class="oe_edit_only"/>
+                    <field name="code"/>
+		    
+                    <label for="name" class="oe_edit_only"/>
+                    <field name="name"/>
+		    
+                    <label for="district_ids" class="oe_edit_only"/> 
+                    <field name="district_ids" widget="many2one_tags"/>
+                </sheet>
+            </form>
+        </field>
+</record>
+
+<!-- District zone Tree View -->
+<record model="ir.ui.view" id="view_district_zone_tree">
+	<field name="name">district.zone.tree</field>
+	<field name="model">district.zone</field>
+	<field name="field_parent"></field>
+	<field name="arch" type="xml">
+		<tree string="District zones">
+			<field name="code"/>
+			<field name="name"/>
+			<field name="district_ids" string="District"/>
+        	</tree>
+ 	</field>
+</record> 
+
+<record model="ir.ui.view" id="view_district_zone_search">
+        <field name="name">district.zone.search</field>
+        <field name="model">district.zone</field>
+        <field name="arch" type="xml">
+            <search string="Zones">
+	    	<field name="code" string="Zone"/>
+                <field name="name" string="Zone"/>
+            </search>
+        </field>
+</record>
+
+ <record model="ir.actions.act_window" id="action_district_zone">
+        <field name="name">Zones</field>
+        <field name="res_model">district.zone</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_district_zone_search"/>
+</record> 
+
+<!--
+############################# SUB ZONES #############################
+-->
+    
+<!-- District Sub Zone Form View -->
+<record model="ir.ui.view" id="view_district_subzone_form">
+	<field name="name">district.subzone.form</field>
+	<field name="model">district.subzone</field>
+	<field name="arch" type="xml">
+		<form string="Sub Zones" version="7.0">
+                <sheet>
+                    <label for="code" class="oe_edit_only"/>
+                    <field name="code"/>
+		    
+                    <label for="name" class="oe_edit_only"/>
+                    <field name="name"/>
+		    
+		    <label for="zone_ids" class="oe_edit_only"/> 
+                    <field name="zone_ids" widget="many2one_tags"/>
+                    <label for="district_ids" class="oe_edit_only"/> 
+                    <field name="district_ids" widget="many2one_tags"/>
+                </sheet>
+            </form>
+        </field>
+</record>
+
+<!-- District Sub zone Tree View -->
+<record model="ir.ui.view" id="view_district_subzone_tree">
+	<field name="name">district.subzone.tree</field>
+	<field name="model">district.subzone</field>
+	<field name="field_parent"></field>
+	<field name="arch" type="xml">
+		<tree string="District Sub zones">
+			<field name="code"/>
+			<field name="name"/>
+			<field name="zone_ids" string="Zone"/>
+			<field name="district_ids" string="District"/>
+        	</tree>
+ 	</field>
+</record> 
+
+<record model="ir.ui.view" id="view_district_subzone_search">
+        <field name="name">district.subzone.search</field>
+        <field name="model">district.subzone</field>
+        <field name="arch" type="xml">
+            <search string="Sub Zones">
+	    	<field name="name" string="Sub Zone"/>
+                <field name="name" string="Sub Zone"/>
+            </search>
+        </field>
+</record>
+
+<record model="ir.actions.act_window" id="action_district_subzone">
+        <field name="name">Sub Zones</field>
+        <field name="res_model">district.subzone</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_district_subzone_search"/>
+</record> 
+
+<!--
+############################# PLOT #############################
+-->
+
+<!-- District Plot Form View -->
+<record model="ir.ui.view" id="view_district_plot_form">
+	<field name="name">district.plot.form</field>
+	<field name="model">district.plot</field>
+	<field name="arch" type="xml">
+		<form string="Plot" version="7.0">
+                <sheet>
+                    <label for="code" class="oe_edit_only"/>
+                    <field name="code"/>
+		    
+                    <label for="block" class="oe_edit_only"/>
+                    <field name="block"/>
+		    
+		    <label for="width" class="oe_edit_only"/>
+                    <field name="width"/>
+		    
+		    <label for="height" class="oe_edit_only"/>
+                    <field name="height"/>
+		    
+		    <label for="unit_ids" class="oe_edit_only"/> 
+                    <field name="unit_ids" widget="many2one_tags"/>
+		    
+		    <label for="subzone_ids" class="oe_edit_only"/> 
+                    <field name="subzone_ids" widget="many2one_tags"/>
+		    
+		    <label for="zone_ids" class="oe_edit_only"/> 
+                    <field name="zone_ids" widget="many2one_tags"/>
+		    
+                    <label for="district_ids" class="oe_edit_only"/> 
+                    <field name="district_ids" widget="many2one_tags"/>
+                </sheet>
+            </form>
+        </field>
+</record>
+
+<!-- District Sub zone Tree View -->
+<record model="ir.ui.view" id="view_district_plot_tree">
+	<field name="name">district.plot.tree</field>
+	<field name="model">district.plot</field>
+	<field name="field_parent"></field>
+	<field name="arch" type="xml">
+		<tree string="District Plot">
+			<field name="code"/>
+			<field name="block"/>
+			<field name="width"/>
+			<field name="height"/>
+			<field name="unit_ids" string="Unit"/>
+			<field name="subzone_ids" string="Sub Zone"/>
+			<field name="zone_ids" string="Zone"/>
+			<field name="district_ids" string="District"/>
+        	</tree>
+ 	</field>
+</record> 
+
+<record model="ir.ui.view" id="view_district_plot_search">
+        <field name="name">district.plot.search</field>
+        <field name="model">district.plot</field>
+        <field name="arch" type="xml">
+            <search string="Plot">
+	    	<field name="block" string="Block"/>
+                <field name="subzone_ids" string="Sub Zone"/>
+		<field name="zone_ids" string="Zone"/>
+		<field name="district_ids" string="District"/>
+            </search>
+        </field>
+</record>
+
+<record model="ir.actions.act_window" id="action_district_plot">
+        <field name="name">Plot</field>
+        <field name="res_model">district.plot</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_district_plot_search"/>
+</record> 
+
+
+
+<!--
+############################# DISTRICTS #############################
+-->
+
+<!-- New District form view -->
+<record model="ir.ui.view" id="view_district_district_form">
+	<field name="name">district.district.form</field>
+        <field name="model">district.district</field>
+        <field name="arch" type="xml">
+            <form string="District" version="7.0">
+                <sheet>
+                    <label for="code" class="oe_edit_only"/>
+		    <label string="District code" />
+                    <field name="code" string="District code"/>
+		    
+                    <label for="name" class="oe_edit_only"/>
+                    <field name="name" string="District name"/>
+                </sheet>
+            </form>
+        </field>
+</record>
+    
+ 
+    
+<record model="ir.ui.view" id="view_district_district_search">
+	<field name="name">district.district.search</field>
+        <field name="model">district.district</field>
+        <field name="arch" type="xml">
+            <search string="Districts">
+                <field name="name" string="District name" />
+                <field name="code" string="District code" />
+            </search>
+        </field>
+</record>
+
+
+
+<record model="ir.ui.view" id="view_district_district_tree">
+        <field name="name">district.district.tree</field>
+        <field name="model">district.district</field>
+        <field name="arch" type="xml">
+        <tree string="Districts">
+	    <field name="code"/>
+            <field name="name"/>
+        </tree>
+        </field>
+</record>
+
+<record model="ir.actions.act_window" id="action_district_district">
+        <field name="name">Districts</field>
+        <field name="res_model">district.district</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_district_district_search"/>
+</record>
+
+<!--
+############################# MENU ITEM #############################
+-->
+
+<menuitem name="District Management" id="district_menu" />
+<menuitem name="Manage" parent="district_menu" id="district_menu_manage" sequence="20" />
+<menuitem name="Districts" parent="district_menu_manage" id="districts_menu" sequence="3" action="action_district_district" />
+<menuitem name="Zones" parent="district_menu_manage" id="menu_district_zone" action="action_district_zone" /> 
+<menuitem name="Sub Zones" parent="district_menu_manage" id="menu_district_subzone" action="action_district_subzone" />
+<menuitem name="Plots" parent="district_menu_manage" id="menu_district_plot" action="action_district_plot" />
+    </data>
+</openerp>

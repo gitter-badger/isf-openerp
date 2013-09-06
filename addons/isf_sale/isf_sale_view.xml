@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+    
+    <!--
+############################# CUSTOMER CATEGORIES #############################
+-->
+
+<!-- New District form view -->
+<record model="ir.ui.view" id="view_customer_category_form">
+	<field name="name">isf_sale.customer.category.form</field>
+        <field name="model">isf_sale.customer.category</field>
+        <field name="arch" type="xml">
+            <form string="Customer categories" version="7.0">
+                <sheet>
+                    <label for="category" class="oe_edit_only"/>
+                    <field name="category"/>
+		    
+                    <label for="description" class="oe_edit_only"/>
+                    <field name="description"/>
+                </sheet>
+            </form>
+        </field>
+</record>
+    
+ 
+    
+<record model="ir.ui.view" id="view_customer_category_search">
+	<field name="name">isf_sale.customer.category.search</field>
+        <field name="model">isf_sale.customer.category</field>
+        <field name="arch" type="xml">
+            <search string="Categories">
+                <field name="category" string="Category name" />
+                <field name="description" string="Category description" />
+            </search>
+        </field>
+</record>
+
+<record model="ir.ui.view" id="view_customer_category_tree">
+        <field name="name">isf_sale.customer.category.tree</field>
+        <field name="model">isf_sale.customer.category</field>
+        <field name="arch" type="xml">
+        <tree string="Categories">
+	    <field name="category"/>
+            <field name="description"/>
+        </tree>
+        </field>
+</record>
+
+<record model="ir.actions.act_window" id="action_customer_category">
+        <field name="name">Categories</field>
+        <field name="res_model">isf_sale.customer.category</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_customer_category_search"/>
+</record>
+
+    
+    
+<!--
+############################# MENU ITEM #############################
+-->
+    <menuitem name="Customer categories" parent="account.menu_finance_receivables" id="menu_customer_categories" sequence="6" action="action_customer_category" />
+    
+    </data>
+</openerp>

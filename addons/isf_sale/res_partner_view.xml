@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+
+    <record model="ir.ui.view" id="isf_sale_view_partner_form">
+        <field name="name">res_partner.district.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+	
+		<xpath expr="//field[@name='title']" position="after">
+			<field name="category_ids" widget="many2one_tags" />
+		</xpath>
+	
+		<notebook>
+			<page string="District">
+				 <group name="grp_districts" string="Plot">
+					 <field name="plot_ids" colspan="4" nolabel="1" >
+					 
+						<tree string="Plot" editable="bottom">
+							<field name="code" string="Plot" />
+							<field name="subzone_ids" string="Sub Zone"/>
+							<field name="zone_ids" string="Zone" />
+							<field name="district_ids" string="Districts" />
+							<field name="block" string="Block" />
+							<field name="width" string="Width" />
+							<field name="height" string="Height" />
+						</tree>
+						
+					 </field>
+					 
+				</group>
+			</page>
+		</notebook>
+	</field>
+    </record>
+    
+    </data>
+</openerp>

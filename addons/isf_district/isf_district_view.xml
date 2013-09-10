@@ -2,6 +2,7 @@
 <openerp>
     <data>
 
+
 <!--
 ############################# ZONES #############################
 -->
@@ -14,9 +15,9 @@
 		<form string="Zones" version="7.0">
 			<sheet>
 				<group colspan="4" col="2">
-				    <field name="code"/>
-				    <field name="name"/>
-				    <field name="district_ids" widget="many2one_tags"/>
+					<field name="district_ids" string="District" widget="many2one_tags"/>
+					<field name="code"/>
+					<field name="name"/>
 				</group>
 			</sheet>
             </form>
@@ -68,10 +69,10 @@
 		<form string="Sub Zones" version="7.0">
                 <sheet>
 			<group colspan="4" col="2">
+			    <field name="district_ids" string="District" widget="many2one_tags" />
+			    <field name="zone_ids" string="Zone" widget="many2one_tags"  />
 			    <field name="code"/>
 			    <field name="name"/>
-			    <field name="zone_ids" widget="many2one_tags"/>
-			    <field name="district_ids" widget="many2one_tags"/>
 			</group>
                 </sheet>
             </form>
@@ -98,8 +99,8 @@
         <field name="model">isf.district.subzone</field>
         <field name="arch" type="xml">
             <search string="Sub Zones">
-	    	<field name="name" string="Sub Zone"/>
-                <field name="name" string="Sub Zone"/>
+	    	<field name="code" string="Sub Zone Code"/>
+                <field name="name" string="Sub Zone Name"/>
             </search>
         </field>
 </record>
@@ -110,6 +111,63 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="view_isf_district_subzone_search"/>
+</record> 
+
+<!--
+############################# BLOCK #############################
+-->
+
+<!-- District block Form View -->
+<record model="ir.ui.view" id="view_isf_district_block_form">
+	<field name="name">isf.district.block.form</field>
+	<field name="model">isf.district.block</field>
+	<field name="arch" type="xml">
+		<form string="Block" version="7.0">
+                <sheet>
+			<group colspan="4" col="2">
+				<field name="district_ids" string="district" widget="many2one_tags"/>
+				<field name="zone_ids" string="zone" widget="many2one_tags"/>
+				<field name="subzone_ids" string="subzone" widget="many2one_tags"/>
+				<field name="code"/>
+			</group>
+                </sheet>
+            </form>
+        </field>
+</record>
+
+<!-- District block Tree View -->
+<record model="ir.ui.view" id="view_isf_district_block_tree">
+	<field name="name">isf.district.block.tree</field>
+	<field name="model">isf.district.block</field>
+	<field name="field_parent"></field>
+	<field name="arch" type="xml">
+		<tree string="District Block">
+			<field name="code"/>
+			<field name="subzone_ids" string="Sub Zone"/>
+			<field name="zone_ids" string="Zone"/>
+			<field name="district_ids" string="District"/>
+        	</tree>
+ 	</field>
+</record> 
+
+<record model="ir.ui.view" id="view_isf_district_block_search">
+        <field name="name">isf.district.block.search</field>
+        <field name="model">isf.district.block</field>
+        <field name="arch" type="xml">
+            <search string="Blovk">
+                <field name="subzone_ids" string="Sub Zone"/>
+		<field name="zone_ids" string="Zone"/>
+		<field name="district_ids" string="District"/>
+            </search>
+        </field>
+</record>
+
+<record model="ir.actions.act_window" id="action_isf_district_block">
+        <field name="name">Block</field>
+        <field name="res_model">isf.district.block</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_isf_district_block_search"/>
 </record> 
 
 <!--
@@ -124,14 +182,12 @@
 		<form string="Plot" version="7.0">
                 <sheet>
 			<group colspan="4" col="2">
-			    <field name="code"/>
-			    <field name="block"/>
-			    <field name="width"/>
-			    <field name="height"/>
-			    <field name="unit_ids" string="unit" widget="many2one_tags"/>
-			    <field name="subzone_ids" string="subzone" widget="many2one_tags"/> 
-			    <field name="zone_ids" string="zone" widget="many2one_tags"/>
-			    <field name="district_ids" string="district" widget="many2one_tags"/>
+				<field name="block_ids" string="Block" widget="many2one_tags"/>
+				<field name="code"/>
+				<field name="unit_ids" string="unit" widget="many2one_tags"/>
+				<field name="width"/>
+				<field name="height"/>
+				<field name="length"/>
 			</group>
                 </sheet>
             </form>
@@ -146,13 +202,12 @@
 	<field name="arch" type="xml">
 		<tree string="District Plot">
 			<field name="code"/>
-			<field name="block"/>
+			
+			<field name="block_ids" string="Block" widget="reference"/>
 			<field name="width"/>
 			<field name="height"/>
+			<field name="length"/>
 			<field name="unit_ids" string="Unit"/>
-			<field name="subzone_ids" string="Sub Zone"/>
-			<field name="zone_ids" string="Zone"/>
-			<field name="district_ids" string="District"/>
         	</tree>
  	</field>
 </record> 
@@ -162,10 +217,7 @@
         <field name="model">isf.district.plot</field>
         <field name="arch" type="xml">
             <search string="Plot">
-	    	<field name="block" string="Block"/>
-                <field name="subzone_ids" string="Sub Zone"/>
-		<field name="zone_ids" string="Zone"/>
-		<field name="district_ids" string="District"/>
+	    	<field name="block_ids" string="Block"/>
             </search>
         </field>
 </record>
@@ -243,6 +295,7 @@
 <menuitem name="Districts" parent="isf_district_menu_manage" id="isf_districts_menu" sequence="3" action="action_isf_district_district" />
 <menuitem name="Zones" parent="isf_district_menu_manage" id="menu_isf_district_zone" action="action_isf_district_zone" /> 
 <menuitem name="Sub Zones" parent="isf_district_menu_manage" id="menu_isf_district_subzone" action="action_isf_district_subzone" />
+<menuitem name="Blocks" parent="isf_district_menu_manage" id="menu_isf_district_block" action="action_isf_district_block" />
 <menuitem name="Plots" parent="isf_district_menu_manage" id="menu_isf_district_plot" action="action_isf_district_plot" />
     </data>
 </openerp>

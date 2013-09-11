@@ -128,7 +128,7 @@
 				<field name="district_ids" string="district" widget="many2one_tags"/>
 				<field name="zone_ids" string="zone" widget="many2one_tags"/>
 				<field name="subzone_ids" string="subzone" widget="many2one_tags"/>
-				<field name="code"/>
+				<field name="name"/>
 			</group>
                 </sheet>
             </form>
@@ -142,7 +142,7 @@
 	<field name="field_parent"></field>
 	<field name="arch" type="xml">
 		<tree string="District Block">
-			<field name="code"/>
+			<field name="name"/>
 			<field name="subzone_ids" string="Sub Zone"/>
 			<field name="zone_ids" string="Zone"/>
 			<field name="district_ids" string="District"/>
@@ -154,7 +154,7 @@
         <field name="name">isf.district.block.search</field>
         <field name="model">isf.district.block</field>
         <field name="arch" type="xml">
-            <search string="Blovk">
+            <search string="Block">
                 <field name="subzone_ids" string="Sub Zone"/>
 		<field name="zone_ids" string="Zone"/>
 		<field name="district_ids" string="District"/>
@@ -182,8 +182,11 @@
 		<form string="Plot" version="7.0">
                 <sheet>
 			<group colspan="4" col="2">
+				<field name="district_ids" string="district" widget="many2one_tags"/>
+				<field name="zone_ids" string="zone" widget="many2one_tags"/>
+				<field name="subzone_ids" string="subzone" widget="many2one_tags"/>
 				<field name="block_ids" string="Block" widget="many2one_tags"/>
-				<field name="code"/>
+				<field name="name"/>
 				<field name="unit_ids" string="unit" widget="many2one_tags"/>
 				<field name="width"/>
 				<field name="height"/>
@@ -201,7 +204,7 @@
 	<field name="field_parent"></field>
 	<field name="arch" type="xml">
 		<tree string="District Plot">
-			<field name="code"/>
+			<field name="name"/>
 			
 			<field name="block_ids" string="Block" widget="reference"/>
 			<field name="width"/>

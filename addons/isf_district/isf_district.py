@@ -62,14 +62,14 @@ class isf_district_block(osv.osv):
 	_name = "isf.district.block"
 	_description = "Block"
 	_columns = {
-		'code' : fields.char('Block Code', size=4, required=True),
+		'name' : fields.char('Block Code', size=4, required=True),
 		'subzone_ids' : fields.many2one('isf.district.subzone',"code",domain="[('zone_ids', '=', zone_ids)]"),
 		'zone_ids' : fields.many2one('isf.district.zone', "code",domain="[('district_ids', '=', district_ids)]"),
 		'district_ids' : fields.many2one('isf.district.district', 'code'), 
 	}
 	
 	_sql_constraints = [
-        	('code_block_uniq', 'unique(code,subzone_ids,zone_ids,district_ids)', 'The code of the plot must be unique')
+        	('code_block_uniq', 'unique(name,subzone_ids,zone_ids,district_ids)', 'The code of the plot must be unique')
     	]
 	
 isf_district_block()
@@ -79,8 +79,11 @@ class isf_district_plot(osv.osv):
 	_name = "isf.district.plot"
 	_description = "Plot"
 	_columns = {
-		'code' : fields.char('Plot Code', size=10, required=True),
-		'block_ids' : fields.many2one('isf.district.block','code',required=True),
+		'name' : fields.char('Plot Code', size=10, required=True),
+		'subzone_ids' : fields.many2one('isf.district.subzone',"code",domain="[('zone_ids', '=', zone_ids)]"),
+		'zone_ids' : fields.many2one('isf.district.zone', "code",domain="[('district_ids', '=', district_ids)]"),
+		'district_ids' : fields.many2one('isf.district.district', 'code'), 
+		'block_ids' : fields.many2one('isf.district.block','code',required=True,domain="['&',('district_ids', '=', district_ids),'&',('zone_ids', '=', zone_ids),('subzone_ids', '=', subzone_ids)]"),
 		'width' : fields.integer('Width',size=4, Required=False),
 		'height' : fields.integer('Height',size=4, Required=False),
 		'length' : fields.integer('Length',size=4, Required=False),
@@ -88,7 +91,7 @@ class isf_district_plot(osv.osv):
 	}
 	
 	_sql_constraints = [
-        	('code_plot_uniq', 'unique(code,block_ids)', 'The code of the plot must be unique')
+        	('code_plot_uniq', 'unique(name,block_ids,district_ids,zone_ids,subzone_ids)', 'The code of the plot must be unique')
     	]
 	
 isf_district_plot()

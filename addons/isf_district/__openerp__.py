@@ -2,7 +2,7 @@
 
 {
 	'name': 'Manage District',
-	'version': '0.4',
+	'version': '0.5',
 	'category': 'Tools',
 	'description': """
 District management

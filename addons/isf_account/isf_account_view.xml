@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+    
+    <!--
+############################# CUSTOMER CATEGORIES #############################
+-->
+
+<!-- New District form view -->
+<record model="ir.ui.view" id="view_customer_category_form">
+	<field name="name">isf.account.customer.category.form</field>
+        <field name="model">isf.account.customer.category</field>
+        <field name="arch" type="xml">
+            <form string="Customer categories" version="7.0">
+                <sheet>
+			<group colspan="4" col="2">
+				<field name="name"/>
+				<field name="description"/>
+			</group>
+                </sheet>
+            </form>
+        </field>
+</record>
+    
+ 
+    
+<record model="ir.ui.view" id="view_customer_category_search">
+	<field name="name">isf.account.customer.category.search</field>
+        <field name="model">isf.account.customer.category</field>
+        <field name="arch" type="xml">
+            <search string="Categories">
+                <field name="name" string="Category name" />
+                <field name="description" string="Category description" />
+            </search>
+        </field>
+</record>
+
+<record model="ir.ui.view" id="view_customer_category_tree">
+        <field name="name">isf.account.customer.category.tree</field>
+        <field name="model">isf.account.customer.category</field>
+        <field name="arch" type="xml">
+        <tree string="Categories">
+	    <field name="name"/>
+            <field name="description"/>
+        </tree>
+        </field>
+</record>
+
+<record model="ir.actions.act_window" id="action_customer_category">
+        <field name="name">Categories</field>
+        <field name="res_model">isf.account.customer.category</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_customer_category_search"/>
+</record>
+
+<!--
+############################# BILL TYPE #############################
+-->
+
+<!-- New District form view -->
+<record model="ir.ui.view" id="view_isf_account_bill_type_form">
+	<field name="name">isf.account.bill_type.form</field>
+        <field name="model">isf.account.bill_type</field>
+        <field name="arch" type="xml">
+            <form string="Bill types" version="7.0">
+                <sheet>
+			<group colspan="4" col="2">
+				<field name="name"/>
+				<field name="description"/>
+			</group>
+                </sheet>
+            </form>
+        </field>
+</record>
+    
+ 
+    
+<record model="ir.ui.view" id="view_isf_account_bill_type_search">
+	<field name="name">isf.account.bill_type.search</field>
+        <field name="model">isf.account.bill_type</field>
+        <field name="arch" type="xml">
+            <search string="Bill Types">
+                <field name="name" string="Bill type code" />
+                <field name="description" string="Bill type description" />
+            </search>
+        </field>
+</record>
+
+<record model="ir.ui.view" id="view_isf_account_bill_type_tree">
+        <field name="name">isf.account.bill_type.tree</field>
+        <field name="model">isf.account.bill_type</field>
+        <field name="arch" type="xml">
+        <tree string="Bill Types">
+	    <field name="name"/>
+            <field name="description"/>
+        </tree>
+        </field>
+</record>
+
+<record model="ir.actions.act_window" id="action_isf_account_bill_type">
+        <field name="name">Bill Types</field>
+        <field name="res_model">isf.account.bill_type</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_isf_account_bill_type_search"/>
+</record>
+
+   
+    
+<!--
+############################# MENU ITEM #############################
+-->
+<menuitem name="Customer categories" parent="account.menu_finance_receivables" id="menu_customer_categories" sequence="6" action="action_customer_category" />
+<menuitem name="Bill" parent="account.menu_finance_receivables" id="menu_isf_account_bill_types" sequence="6" action="action_isf_account_bill_type" />
+ 
+    </data>
+</openerp>

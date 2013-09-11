@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+    <record model="ir.ui.view" id="isf_account_view_partner_form">
+        <field name="name">res_partner.isf.district.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+	
+		<xpath expr="//field[@name='title']" position="after">
+			<field name="customer_number" />
+		</xpath>
+		
+		<xpath expr="//field[@name='title']" position="after">
+			<field name="bill_to_ids" string="Bill to" widget="many2one_tags" />
+		</xpath>
+	
+		<notebook>
+			<page string="Property Info">
+				<group name="grp_location" string="Location">
+					<field name="district_ids" string="Districts" />
+					<field name="zone_ids" string="Zone" />
+					<field name="subzone_ids" string="Sub Zone"/>
+					<field name="location_ids" string="Block" />	 
+				</group>
+				
+				 <group name="grp_land" string="Land">
+					 <field name="land_ids" colspan="4" nolabel="1" >
+					 
+						<tree string="Plot" editable="bottom">
+							<field name="name" string="Plot" />
+							<field name="width" string="Width" />
+							<field name="length" string="Length" />
+							<field name="height" string="Height" />
+						</tree>
+						
+					 </field>
+					 
+				</group>
+				
+				<group name="grp_build" string="Build">
+					 <field name="build_ids" colspan="4" nolabel="1" >
+					 
+						<tree string="Plot" editable="bottom">
+							<field name="name" string="Plot" />
+							<field name="width" string="Width" />
+							<field name="length" string="Length" />
+							<field name="height" string="Height" />
+						</tree>
+						
+					 </field>
+					 
+				</group>
+			</page>
+			
+			<page string="Billing Information">
+				<label string="Billing Type" colspan="2"/>
+				<field name="bill_type_ids" colspan="2"/>
+				<label string="Tariff code" colspan="2" />
+				<field name="tariff_code_ids" colspan="2"/>
+			</page>
+		</notebook>
+	</field>
+    </record>
+    
+    <record model="ir.ui.view" id="isf_account_res_partner_filter">
+            <field name="name">isf.account.res.partner.select</field>
+            <field name="model">res.partner</field>
+	    <field name="inherit_id" ref="base.view_res_partner_filter" />
+            <field name="arch" type="xml">
+                <search string="Search Partner">
+			<filter string="Categories" name="category" help="Customer Category"/>
+		</search>
+	    </field>
+    </record>
+    
+    </data>
+</openerp>

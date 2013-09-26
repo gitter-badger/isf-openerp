@@ -17,7 +17,6 @@ openerp.isf_userbox = function(instance) {
                  
                 instance.session.rpc("/isf/userbox/public", {'db_name': dbname})
                 .done(function(users){
-                    console.log(users);
                     var select = $("select[name='userbox']");
                     $.each(users, function(idx, userData){
                         select.append($("<option></option>")

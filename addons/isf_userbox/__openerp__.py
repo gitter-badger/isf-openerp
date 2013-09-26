@@ -1,11 +1,13 @@
 {
     'name': 'Isf Login Manager',
-    'category': 'Authentication',
+    'author': 'Antonio Verni(antonio.verni@informaticisenzafrontiere.org)',
+    'website': 'www.informaticisenzafrontiere.org',
+    'license': 'AGPL-3',
+    'category': 'Tools',
     'version': '0.0.1',
-    'description':
-        """
+    'description':"""
 This module provides an alternative login screen.
-        """,
+    """,
     'depends': ['base', 'web'],
     'data_xml': [
         #'security/ir.model.access.csv',
@@ -21,6 +23,6 @@ This module provides an alternative login screen.
     	"static/src/js/*.js",
     ],
     'installable': True,
-    'auto_install': True,
+    #'auto_install': True,
     'bootstrap': True,
 }

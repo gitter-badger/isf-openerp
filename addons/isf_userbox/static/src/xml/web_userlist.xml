@@ -6,8 +6,7 @@
 
     <!-- Remove the Manage database link, but keep the Powered by OpenERP-->
     <t t-extend="Login">
-        <t t-jquery=".oe_login_pane" t-operation="replace">
-            <div class="oe_login_logo"><img src='/web/static/src/img/logo2.png'/></div>
+        <t t-jquery=".oe_login_pane form" t-operation="replace">
             <form action="" method="post">
                 <div class="oe_login_dbpane" >
                     Database:
@@ -30,7 +29,7 @@
                         <div class="oe_login_isf_userbox_default" style="display:none">
                             <input name="login" type="text" value="" autofocus="autofocus"/>
                         </div>
-                        <a href="#" onclick="$('.oe_login_isf_userbox').toggle(); $('.oe_login_isf_userbox_default').toggle()">switch</a>
+                        <a href="#" tabIndex="-1" onclick="$('.oe_login_isf_userbox').toggle(); $('.oe_login_isf_userbox_default').toggle()">switch</a>
                     </li>
 
                     <li>Password</li>
@@ -38,10 +37,6 @@
                     <li><button name="submit">Log in</button></li>
                 </ul>
             </form>
-            <!--div class="oe_login_footer">
-                <a href="#" class="oe_login_manage_db">Manage Databases</a> |
-                <a href="http://www.openerp.com" target="_blank">Powered by <span>OpenERP</span></a>
-            </div-->
         </t>
     </t>
 </templates>

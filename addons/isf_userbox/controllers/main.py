@@ -37,10 +37,12 @@ class IsfUserBoxController(openerpweb.Controller):
             #loginbox = registry['loginox.public']
             groupsModel = db_registry['res.groups']
             cr = db_registry.db.cursor()
-            res = groupsModel.search(cr, 1, [('name', '=', 'Visible')])
+            #res = groupsModel.search(cr, 1, [('name', '=', 'Visible')])
+            #res = groupsModel.search(cr, 1, [('name', '=', 'Access Rights')])
+            res = [1] # gruppo Access Rights
             userModel = db_registry['res.users']
-            res = userModel.search(cr, 1, [('groups_id', 'in', res)])
-            res = userModel.read(cr, 1, res, ['login', 'display_name'])
+            res = userModel.search(cr, 1, [('groups_id', 'not in', res)])
+            res = userModel.read(cr, 1, res, []) #'login', 'display_name'])
             #cr.commit()
         except Exception, ex:
             _logger.exception('Failed to execute IsfUserBox method %s ' %  ex)

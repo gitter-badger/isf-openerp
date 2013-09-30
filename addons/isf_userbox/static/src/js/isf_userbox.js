@@ -31,6 +31,9 @@ openerp.isf_userbox = function(instance) {
                         $("input[name='login']").val(login);
                     });
                 });
+                if(!location.search.match(new RegExp("[?&]managedatabase(&|$)"))){
+                    $(".oe_login_pane .oe_login_footer").hide();
+                }
             });
         },
     });

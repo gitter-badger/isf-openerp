@@ -38,9 +38,9 @@
                 </ul>
             </form>
         </t>
-        <t t-jquery=".oe_login_pane .oe_login_footer" t-operation="replace">
+        <!--t t-jquery=".oe_login_pane .oe_login_footer" t-operation="replace">
             <span></span>
-        </t>
+        </t-->
         
     </t>
 </templates>

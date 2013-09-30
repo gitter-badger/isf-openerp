@@ -1,5 +1,5 @@
 {
-    'name': 'Isf Login Manager',
+    'name': 'ISF Login Manager',
     'author': 'Antonio Verni(antonio.verni@informaticisenzafrontiere.org)',
     'website': 'www.informaticisenzafrontiere.org',
     'license': 'AGPL-3',
@@ -11,7 +11,7 @@ This module provides an alternative login screen.
     'depends': ['base', 'web'],
     'data_xml': [
         #'security/ir.model.access.csv',
-        'security/isf_userbox.xml',
+        'security/isf_loginmanager.xml',
     ],
     'qweb' : [
         "static/src/xml/*.xml",

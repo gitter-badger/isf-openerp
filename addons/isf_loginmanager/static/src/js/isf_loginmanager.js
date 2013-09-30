@@ -1,21 +1,21 @@
 
 
-openerp.isf_userbox = function(instance) {
+openerp.isf_loginmanager = function(instance) {
     var _t = instance.web._t,
         _lt = instance.web._lt;
     var QWeb = instance.web.qweb;
 
-    instance.isf_userbox = {};
+    instance.isf_loginmanager = {};
 
     instance.web.Login.include({
         start: function() {
             var self = this;
             return this._super().always(function(){
                 var dbname = self.selected_db;
-                //reader = new instance.isf_userbox.UserReader(dbname);
+                //reader = new instance.isf_loginmanager.UserReader(dbname);
                 //return reader.read().done(function(users){
                  
-                instance.session.rpc("/isf/userbox/public", {'db_name': dbname})
+                instance.session.rpc("/isf/loginmanager/public", {'db_name': dbname})
                 .done(function(users){
                     var select = $("select[name='userbox']");
                     $.each(users, function(idx, userData){

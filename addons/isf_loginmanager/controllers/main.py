@@ -5,8 +5,8 @@ import openerp.addons.web.http as openerpweb
 
 _logger = logging.getLogger(__name__)
 
-class IsfUserBoxController(openerpweb.Controller):
-    _cp_path = "/isf/userbox"
+class ISFLoginManagerController(openerpweb.Controller):
+    _cp_path = "/isf/loginmanager"
 
     @openerpweb.jsonrequest
     def active(self, req, db_name =''):
@@ -22,7 +22,7 @@ class IsfUserBoxController(openerpweb.Controller):
             #res = loginbox.read(cr, 1, res, [])
             #cr.commit()
         except Exception, ex:
-            _logger.exception('Failed to execute IsfUserBox method %s ' %  e)
+            _logger.exception('Failed to execute ISFLoginManager method %s ' %  e)
             raise
         finally:
             cr.close()
@@ -45,7 +45,7 @@ class IsfUserBoxController(openerpweb.Controller):
             res = userModel.read(cr, 1, res, []) #'login', 'display_name'])
             #cr.commit()
         except Exception, ex:
-            _logger.exception('Failed to execute IsfUserBox method %s ' %  ex)
+            _logger.exception('Failed to execute ISFLoginManager method %s ' %  ex)
             raise
         finally:
             cr.close()

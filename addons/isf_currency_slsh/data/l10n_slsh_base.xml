@@ -1,0 +1,20 @@
+<openerp>
+    <data noupdate="1">
+
+        <!-- Somaliland Shilling -->
+
+        <record id="SLSH" model="res.currency">
+            <field name="name">SLSH</field>
+            <field name="symbol">SLSH</field>
+            <field name="rounding">0.010000</field>
+            <field name="accuracy">4</field>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+        <record id="rateSLSH" model="res.currency.rate">
+            <field name="rate">7000.000000</field>
+            <field name="currency_id" ref="SLSH"/>
+            <field eval="time.strftime('%Y-01-01')" name="name"/>
+        </record>
+
+    </data>
+</openerp>

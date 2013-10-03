@@ -4,7 +4,6 @@
 <templates id="template" xml:space="preserve">
     <!-- Templates modified at the web start, before loading of a database. -->
 
-    <!-- Remove the Manage database link, but keep the Powered by OpenERP-->
     <t t-extend="Login">
         <t t-jquery=".oe_login_pane form" t-operation="replace">
             <form action="" method="post">

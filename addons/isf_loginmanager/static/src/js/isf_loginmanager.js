@@ -33,6 +33,7 @@ openerp.isf_loginmanager = function(instance) {
                 });
                 if(!location.search.match(new RegExp("[?&]managedatabase(&|$)"))){
                     $(".oe_login_pane .oe_login_footer").hide();
+                    $(".oe_login_pane form .oe_login_dbpane").hide();
                 }
             });
         },

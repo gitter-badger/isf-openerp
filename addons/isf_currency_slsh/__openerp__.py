@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
 {
-    'name': 'ISF SLSH Currecy',
-    'version': '0.2',
+    'name': 'ISF Currecy SLSH',
+    'version': '0.3',
     #'depends': ['account_accountant'],
     'author': 'Antonio Verni for ISF',
     'description': """

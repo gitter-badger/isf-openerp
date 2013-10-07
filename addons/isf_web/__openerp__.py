@@ -1,21 +1,22 @@
 {
-    'name': 'Web',
+    'name': 'Isf Web',
     'category': 'Hidden',
-    'version': '7.0.0.1',
+    'version': '0.0.1',
     'description':
         """
-OpenERP Web core module.
-========================
-
 This module provides an alternative login screen.
         """,
     'depends': ['web'],
     'qweb' : [
-        "static/src/xml/web_userlist.xml",
+        "static/src/xml/*.xml",
     ],
     'css' : [
-	"static/src/css/isf_base.css",
+    	"static/src/css/*.css",
+    ],
+    'js' : [
+    	"static/src/js/*.js",
     ],
     'installable': True,
     'auto_install': True,
+    'bootstrap': True,
 }

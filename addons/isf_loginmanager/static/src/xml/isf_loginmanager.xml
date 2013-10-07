@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vim:fdl=1:
+-->
+<templates id="template" xml:space="preserve">
+    <!-- Templates modified at the web start, before loading of a database. -->
+
+    <t t-extend="Login">
+        <t t-jquery=".oe_login_pane form" t-operation="replace">
+            <form action="" method="post">
+                <div class="oe_login_dbpane" >
+                    Database:
+                    <input name="db" t-att-value="widget.selected_db || ''"/>
+                </div>
+                <ul>
+                    <li>User</li>
+                    <li>
+                        <div class="oe_login_isf_userbox">
+                            <select name="userbox" autofocus="autofocus" size="7">
+                            </select>
+                            <!--select t-if="widget.userbox_list" name="login" autofocus="autofocus" size="7">
+                                <t t-foreach="widget.userbox_list" t-as="user">
+                                    <option t-att-value="user.login" >
+                                        <t t-esc="user.display_name" />
+                                    </option>
+                                </t>
+                            </select-->
+                        </div>
+                        <div class="oe_login_isf_userbox_default" style="display:none">
+                            <input name="login" type="text" value="" autofocus="autofocus"/>
+                        </div>
+                        <a href="#" tabIndex="-1" onclick="$('.oe_login_isf_userbox').toggle(); $('.oe_login_isf_userbox_default').toggle()">switch</a>
+                    </li>
+
+                    <li>Password</li>
+                    <li><input name="password" type="password" value=""/></li>
+                    <li><button name="submit">Log in</button></li>
+                </ul>
+            </form>
+        </t>
+        <!--t t-jquery=".oe_login_pane .oe_login_footer" t-operation="replace">
+            <span></span>
+        </t-->
+        
+    </t>
+</templates>

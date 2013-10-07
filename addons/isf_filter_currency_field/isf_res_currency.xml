@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+		<function model="isf.res.currency" name="_init_currency"/>
+	</data>
+</openerp>

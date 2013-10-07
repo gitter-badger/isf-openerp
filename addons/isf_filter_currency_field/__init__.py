@@ -1,0 +1,1 @@
+import isf_res_currency

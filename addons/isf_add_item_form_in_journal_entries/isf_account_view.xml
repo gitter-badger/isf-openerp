@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+	
+	<record model="ir.ui.view" id="isf_account_view_move_form_inherit">
+		<field name="name">isf.account.move.form</field>
+		<field name="model">account.move</field>
+		<field name="inherit_id" ref="account.view_move_form" />
+		<field name="priority">2</field>
+		<field name="arch" type="xml">
+			<page string="Journal Items" position="replace" version="7.0">
+				<page string="Journal items">
+					<field name="line_id"
+					context="{'form_view_ref': 'isf_add_item_form_in_journal_entries.isf_account_move_form_view','line_id': line_id , 'journal_id': journal_id }">
+						<tree string="Line details">
+							
+							<field name="name" />
+							<field name="partner_id"
+								context="{'search_default_customer':1, 'show_address': 1}" 
+								domain="[('customer','=',True)]"
+								options="{'create': False, 'create_edit': False}"
+							/>
+							<field name="account_id"/>
+							
+							<field name="date"/>
+							
+							
+							<field name="analytic_account_id" />
+							<field name="amount_currency"/>
+							<field name="currency_id"/>
+							<field name="credit" />
+							<field name="debit" />
+							
+							<field name="tax_code_id"/>
+							<field name="tax_amount"/>
+						</tree>
+						
+					</field>
+				</page>
+			</page>
+		</field>
+	</record>
+	
+	<record model="ir.ui.view" id="isf_account_move_form_view">
+		<field name="name">isf.account.move.line.form.</field>
+		<field name="model">account.move.line</field>
+		<field name="priority" eval="64"/>
+		<field name="arch" type="xml">
+		<form string="Items" version="7.0">
+			<sheet>
+				<group colspan="4" cols="4">
+					<field name="name" />
+					<field name="partner_id" 
+						domain="[('customer','=',True),'|',('supplier','=',True)]"
+						options="{'create': False, 'create_edit': False}"
+					/>
+					<field name="account_id" options="{'create': False, 'create_edit': False}"/>
+					<field name="date"/>
+					<field name="analytic_account_id" options="{'create': False, 'create_edit': False}"/>
+					<field name="amount_currency"/>
+					<field name="currency_id" options="{'create': False, 'create_edit': False}"/>
+					<field name="credit" context="{'currency_id' : currency_id}" on_change="onchange_credit(credit,context)"/>
+					<field name="debit" context="{'currency_id' : currency_id}" on_change="onchange_debit(debit,context)"/>
+					<field name="tax_code_id" options="{'create': False, 'create_edit': False}"/>
+					<field name="tax_amount"/>
+					<field name="state"/>
+				</group>
+			</sheet>
+    		</form>
+		</field>
+	</record>
+	
+	 <act_window
+            id="action_isf_move_line_open"
+            name="ISF move line"
+            res_model="account.move.line"
+            context="{'line_id': line_id , 'journal_id': journal_id }"
+            src_model="account.move"
+            view_type="form"
+            view_mode="tree,form"/>
+
+	
+	 <record model="ir.actions.act_window" id="action_isf_account_move_line">
+		<field name="name">Add an item</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">account.move.line</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+		<field name="view_id" ref="isf_account_move_form_view"/>
+	</record>
+	
+	</data>
+</openerp>

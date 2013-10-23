@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="isf_bank_transfer_form_view" model="ir.ui.view">
+			<field name="name">isf.bank.transfer.form</field>
+			<field name="model">isf.bank.transfer</field>
+			<field name="arch" type="xml">
+				<form string="Bank transfer" version="7.0">
+				<group>
+					<group colspan="4">
+						<field name="name" options="{'create' : false,'create_edit':false}"/>
+					</group>
+					<group string="Bank">
+						<field colspan="2" name="account_src" domain="[('type','=','liquidity')]" options="{'create' : false,'create_edit':false}"/>
+						<field colspan="2" name="account_dst" domain="[('type','=','liquidity')]" options="{'create' : false,'create_edit':false}"/>
+					</group>
+					
+					<group string="Data">
+						<field name="date" string="Date"/>
+						<field name="currency" string="Currency"/>
+						<field name="amount" 
+							string="Amount" 
+							context="{'currency_id' : currency, 'account_src_id' : account_src , 'account_dst_id' : account_dst}"
+							on_change="onchange_amount(currency,amount,context)"/>
+						<field name="amount_currency" string="Amount currency" />
+						<field name="amount_company_currency" />
+					</group>
+					</group>
+					
+					<footer>
+						<button 
+							name="make_transfer" 
+							string="Make transfer"
+							context="{'amount_company_currency' : amount_company_currency, 'currency_id':currency}"
+							type="object" 
+							class="oe_highlight"/>
+						or
+						<button string="Cancel" class="oe_link" special="cancel"/>
+					</footer>
+				</form>
+			</field>
+		</record>	
+
+		<record id="isf_bank_transfer_tree_view" model="ir.ui.view">
+			<field name="name">isf.bank.transfer.tree</field>
+			<field name="model">isf.bank.transfer</field>
+			<field name="arch" type="xml">
+				<tree string="Bank transfer">
+					<field name="date" string="Date"/>
+					<field name="amount" string="Amount"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="isf_bank_transfer_search_view" model="ir.ui.view">
+			<field name="name">isf.bank.transfer.search</field>
+			<field name="model">isf.bank.transfer</field>
+			<field name="arch" type="xml">
+				<search string="Bank transfer">
+					<field name="date" string="Date"/>
+					<field name="amount" string="Amount"/>
+				</search>
+			</field>
+		</record>
+		
+		<record id="isf_bank_transfer_type_form_view" model="ir.ui.view">
+			<field name="name">isf.bank.transfer.type.form</field>
+			<field name="model">isf.bank.transfer.type</field>
+			<field name="arch" type="xml">
+				<form string="Bank transfer type" version="7.0">
+				<group>
+					<group colspan="4">
+						<field name="name" string="Code"/>
+					</group>
+					<group>
+						<field colspan="2" name="description"/>
+						<field colspan="2" name="type" />
+						<field name="default" />
+					</group>
+				</group>
+				</form>
+			</field>
+		</record>
+		
+		<record id="isf_bank_transfer_type_tree_view" model="ir.ui.view">
+			<field name="name">isf.bank.transfer.type.tree</field>
+			<field name="model">isf.bank.transfer.type</field>
+			<field name="arch" type="xml">
+				<tree string="Bank transfer type">
+					<field name="name"/>
+					<field name="description"/>
+					<field name="type" />
+					<field name="default" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="isf_bank_transfer_search_view" model="ir.ui.view">
+			<field name="name">isf.bank.transfer.type.search</field>
+			<field name="model">isf.bank.transfer.type</field>
+			<field name="arch" type="xml">
+				<search string="Bank transfer type">
+					<field name="name"/>
+					<field name="description"/>
+					<field name="type" />
+				</search>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="isf_account__journal_view_form">
+			<field name="name">isf.account.journal.form</field>
+			<field name="model">account.journal</field>
+			<field name="inherit_id" ref="account.view_account_journal_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='group_invoice_lines']" position="after">
+					<field name="bank_operations" />
+				</xpath>
+			</field>
+		</record>
+	
+		
+		<record model="ir.actions.act_window" id="action_isf_bank_transfer_wizard">
+			<field name="name">Bank transfer</field>
+			<field name="res_model">isf.bank.transfer</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+			<field name="view_id" ref="isf_bank_transfer_form_view" />
+			<field name="context">{}</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="action_isf_bank_transfer_type">
+			<field name="name">Bank transfer type</field>
+			<field name="res_model">isf.bank.transfer.type</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="isf_bank_transfer_search_view"/>
+			<field name="view_id" ref="isf_bank_transfer_type_tree_view"/>
+		</record>
+		
+	<!--
+	############################# MENU ITEM #############################
+	-->
+
+	<menuitem 
+		name="Bank transfer" 
+		parent="account.menu_finance_bank_and_cash" 
+		id="isf_bank_transfer_form_wizard" 
+		sequence="20" 
+		action="action_isf_bank_transfer_wizard"
+	/>
+	
+	<menuitem
+		id="menu_account_isf"
+		name="ISF"
+		sequence="2"
+		parent="account.menu_finance_configuration"
+	/>
+	
+	<menuitem
+		name="Bank transfer type" 
+		parent="menu_account_isf" 
+		id="isf_bank_transfer_type_form" 
+		sequence="20" 
+		action="action_isf_bank_transfer_type"
+	/>
+
+
+	</data>
+</openerp>

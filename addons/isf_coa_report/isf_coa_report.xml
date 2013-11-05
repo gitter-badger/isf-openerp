@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <!--
+        webkit_header="base_headers_webkit.base_reports_portrait_header"
+    -->
+    <report id="isf_coa_report"
+            name="isf.coa.webkit"
+            auto="False"
+            menu="False"
+            model="account.account"
+            file="isf_coa_report/report/coa.mako"
+            string="Hargeisa General Hospita - Chart Of Accounts"
+            header="True"
+            report_type="webkit"/>
+
+    <record id="view_isf_coa_account_form" model="ir.ui.view">
+        <field name="name">isf.coa.report.form</field>
+        <field name="model">isf.hgh.coa.account</field>
+        <field name="arch" type="xml">
+            <form string="Account" version="7.0" create="false">
+                <group string="Choose starting account.">
+                    <field name="account" widget="selection" domain="[('parent_id','=',False)]" />
+                </group>
+                <footer>
+                    <button name="%(isf_coa_report)d" string="Print COA Report" type="action" class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_isf_coa_account_tree" model="ir.actions.act_window">
+        <field name="name">ISF Chart of Accounts</field>
+        <field name="res_model">isf.hgh.coa.account</field>
+        <field name="view_type">tree</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_isf_coa_account_form"/>
+        <field name="domain">[('parent_id','=',False)]</field>
+    </record>
+
+    <!--act_window id="action_isf_coa_account_tree" 
+        key2="client_print_multi"
+        name="ISF Chart of Accounts"
+        res_model="isf.hgh.coaaccount"
+        view_type="form"
+        view_mode="form"
+        view_id="view_isf_coa_account_form"
+        target="new"
+    /-->
+        <!--field name="res_model">report.account.account.coa.webkit</field
+        domain="[('parent_id','=',False)]"
+              action="action_isf_coa_account_tree"
+-->
+    <menuitem name="COA Report" 
+              id="menu_isf_coa_report" 
+              parent="account.menu_finance_generic_reporting" 
+              action="action_isf_coa_account_tree"
+              groups="account.group_account_user,account.group_account_manager" />
+
+  </data>
+</openerp>

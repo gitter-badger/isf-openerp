@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <!--record id="view_isf_home_dashboard_invoice_view" model="ir.ui.view">
+        <field name="name">isf.dashboard.home.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+        </field>class="oe_e oe_star_on">
+    </record-->
+
+
+    <menuitem name="Home" 
+              sequence="0"
+              id="menu_isf_home_dashboard" 
+              groups="base.group_user,account.group_account_user,account.group_account_manager" />
+
+    <!-- client action -->
+    <menuitem name="Home" 
+              id="menu_isf_home_dashboard_start" 
+              parent="menu_isf_home_dashboard" 
+              groups="base.group_user,account.group_account_user,account.group_account_manager" />
+
+    <record id="view_isf_home_dashboard_start" model="ir.ui.view">
+        <field name="name">isf.home.dashboard.action.start.kanban</field>
+        <field name="model">isf.home.dashboard.action</field>
+        <field name="type">kanban</field>
+        <field name="arch" type="xml">
+            <kanban create="false" delete="false">
+                <field name="icon"/>
+                <field name="name"/>
+                <field name="action"/>
+                <field name="description"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_module_vignette" style="min-height: 88px;">
+                            <a type="object" name="route_to" > 
+                                <img class="oe_module_icon" t-att-src="kanban_image('isf.home.dashboard.action', 'icon', record.id.value)" />
+                            </a>
+                            <div class="oe_module_desc oe_loempia_details">
+                                <h4>
+                                    <a type="object" name="route_to" >
+                                        <field name="name"/>
+                                    </a>
+                                </h4>
+                                <p class="oe_module_name">
+                                    <field name="description"/>
+                                </p>
+                            </div>
+                        <!--button name='route_to' string="Run" type="object" icon="gtk-execute"/-->
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_isf_home_dashboard_start" model="ir.actions.act_window" >
+        <field name="name">Start</field>
+        <!--field name="res_model">ir.actions.actions</field-->
+        <field name="res_model">isf.home.dashboard.action</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">tree</field>
+        <field name="view_mode">kanban,tree</field>
+        <field name="view_id" ref="view_isf_home_dashboard_start"/>
+    </record>
+
+    <menuitem name="Start" 
+              id="menu_isf_home_dashboard_start_start" 
+              parent="menu_isf_home_dashboard_start" 
+              action="action_isf_home_dashboard_start"
+              groups="account.group_account_user,account.group_account_manager" />
+
+    <menuitem name="Operations" 
+              id="menu_isf_home_dashboard_operations" 
+              parent="menu_isf_home_dashboard" 
+              groups="account.group_account_user,account.group_account_manager" />
+
+    <menuitem name="Bank Transfer" 
+              id="menu_isf_home_dashboard_banktransfer" 
+              parent="menu_isf_home_dashboard_operations" 
+              groups="account.group_account_user,account.group_account_manager" />
+
+    <!--
+              action="action_isf_home_dashboard_customer_invoice"
+    -->
+    <menuitem name="Customer Invoice" 
+              id="menu_isf_home_dashboard_customer_invoice" 
+              action="account.action_invoice_tree1"
+              parent="menu_isf_home_dashboard_operations" 
+              groups="account.group_account_user,account.group_account_manager" />
+
+    <record id="action_isf_home_dashboard_customer_invoice" model="ir.actions.act_window" >
+        <field name="name">Customer Invoice</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account.invoice_form"/>
+    </record>
+
+
+    <!--
+              action="action_isf_home_dashboard_supplier_invoice"
+    -->
+    <menuitem name="Supplier Invoice" 
+              id="menu_isf_home_dashboard_supplier_invoice" 
+              action="account.action_invoice_tree2"
+              parent="menu_isf_home_dashboard_operations" 
+              groups="account.group_account_user,account.group_account_manager" />
+
+    <record id="action_isf_home_dashboard_supplier_invoice" model="ir.actions.act_window" >
+        <field name="name">Supplier invoice</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account.invoice_supplier_form"/>
+    </record>
+
+    <menuitem name="Reports" 
+              id="menu_isf_home_dashboard_reports" 
+              parent="menu_isf_home_dashboard" 
+              groups="account.group_account_user,account.group_account_manager" />
+
+    <menuitem name="General Ledger" 
+              id="menu_isf_home_dashboard_generalledger" 
+              parent="menu_isf_home_dashboard_reports" 
+              action="account.action_account_general_ledger_menu"
+              groups="account.group_account_user,account.group_account_manager" />
+
+    <menuitem name="Journal Entry" 
+              id="menu_isf_home_dashboard_journalentry" 
+              parent="menu_isf_home_dashboard_reports" 
+              action="account.action_move_journal_line"
+              groups="account.group_account_user,account.group_account_manager" />
+
+    <record id="action_isf_home_dashboard_journalentry" model="ir.actions.act_window" >
+        <field name="name">Journal Entry</field>
+        <field name="res_model">account.move</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account.view_move_form"/>
+    </record>
+
+    <menuitem name="Chart of Accounts" 
+              id="menu_isf_home_dashboard_coa" 
+              parent="menu_isf_home_dashboard_reports" 
+              groups="account.group_account_user,account.group_account_manager" />
+
+    <record model="ir.ui.view" id="view_isf_home_dashboard_action_search">
+            <field name="name">isf.home.dashboard.action.search</field>
+            <field name="model">isf.home.dashboard.action</field>
+            <field name="arch" type="xml">
+                <search string="Actions">
+                    <field name="name" string="Action name" />
+                    <field name="action" string="Action"/>
+                </search>
+            </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_isf_home_dashboard_action_tree">
+        <field name="name">isf.home.dashboard.action.tree</field>
+        <field name="model">isf.home.dashboard.action</field>
+        <field name="arch" type="xml">
+            <tree string="Actions">
+                <field name="name" string="Action name" />
+                <field name="action" string="Action"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_isf_home_dashboard_action_form">
+        <field name="name">isf.home.dashboard.action.form</field>
+        <field name="model">isf.home.dashboard.action</field>
+        <field name="arch" type="xml">
+            <form string="Actions" version="7.0">
+                <sheet>
+                    <group colspan="4" col="2">
+                        <field name="action" string="Action" widget="one2one_tags"/>
+                        <field name="name"/>
+                        <field name="icon"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_isf_home_dashboard_configactions">
+        <field name="name">Home Dashboard Actions</field>
+        <field name="res_model">isf.home.dashboard.action</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="multi">True</field>
+        <field name="search_view_id" ref="view_isf_home_dashboard_action_search"/>
+    </record>
+          
+    <menuitem name="Home Actions" 
+              id="menu_isf_home_dashboard_configactions" 
+              parent="base.menu_config"
+              action="action_isf_home_dashboard_configactions"
+               />
+
+  </data>
+</openerp>

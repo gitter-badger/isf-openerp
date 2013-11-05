@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <!--
+        webkit_header="base_headers_webkit.base_reports_portrait_header"
+    -->
+    <report id="isf_coaa_report"
+            name="isf.coaa.webkit"
+            auto="False"
+            menu="False"
+            model="account.analytic.account"
+            file="isf_coaa_report/report/coaa.mako"
+            string="Hargeisa General Hospita - Chart Of Analytic Accounts"
+            header="True"
+            report_type="webkit"/>
+
+    <record id="view_isf_coaa_account_form" model="ir.ui.view">
+        <field name="name">isf.coaa.report.form</field>
+        <field name="model">isf.hgh.coaa.account</field>
+        <field name="arch" type="xml">
+            <form string="Account" version="7.0" create="false">
+                <group string="Choose starting account.">
+                    <field name="account" widget="selection" domain="[('parent_id','=',False)]" />
+                </group>
+                <footer>
+                    <button name="%(isf_coaa_report)d" string="Print COAA Report" type="action" class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_isf_coaa_account_tree" model="ir.actions.act_window">
+        <field name="name">ISF Chart of Analytic Accounts</field>
+        <field name="res_model">isf.hgh.coaa.account</field>
+        <field name="view_type">tree</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_isf_coaa_account_form"/>
+        <field name="domain">[('parent_id','=',False)]</field>
+    </record>
+
+    <!--act_window id="action_isf_coaa_account_tree" 
+        key2="client_print_multi"
+        name="ISF Chart of Accounts"
+        res_model="isf.hgh.coaaaccount"
+        view_type="form"
+        view_mode="form"
+        view_id="view_isf_coaa_account_form"
+        target="new"
+    /-->
+        <!--field name="res_model">report.account.account.coaa.webkit</field
+        domain="[('parent_id','=',False)]"
+              action="action_isf_coaa_account_tree"
+-->
+    <menuitem name="COAA Report" 
+              id="menu_isf_coaa_report" 
+              parent="account.menu_finance_generic_reporting" 
+              action="action_isf_coaa_account_tree"
+              groups="account.group_account_user,account.group_account_manager" />
+
+  </data>
+</openerp>

@@ -6,9 +6,6 @@
 .row { 
     width: "100%";
     border-top: thin solid  #ffffff ;
-}
-
-.std_text {
     font-size:12;
 }
 

@@ -14,7 +14,7 @@ Add a report showing the full COA including empty accounts
     'license': 'AGPL-3',
     'category': 'Localization/Account Charts',
     'data': [
-        'isf_coa_report.xml',
+        'wizard/isf_coa_report.xml',
     ],
     'demo': [],
     'qweb' : [

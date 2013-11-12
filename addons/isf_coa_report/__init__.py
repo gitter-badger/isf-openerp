@@ -25,5 +25,5 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import report
-import isf_coa_report
+import report
+import wizard

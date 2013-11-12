@@ -1,24 +1,4 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-
 import time
 from pprint import pprint as pp
 
@@ -57,7 +37,7 @@ class isf_coa_report_parser(report_sxw.rml_parse):
             currency = acc_id.currency_id and acc_id.currency_id or acc_id.company_id.currency_id
             res = {
                 'id': account_rec['id'],
-                'type': account_rec['type'],
+                'type': account_rec['user_type'][1],
                 'code': account_rec['code'],
                 'name': account_rec['name'],
                 'currency_id': currency_obj.read(self.cr, self.uid, [currency.id], ['name'])[0],
@@ -112,7 +92,7 @@ class isf_coa_report_parser(report_sxw.rml_parse):
         child_ids = obj_account._get_children_and_consol(self.cr, self.uid, ids, ctx)
         if child_ids:
             ids = child_ids
-        accounts = obj_account.read(self.cr, self.uid, ids, ['type','code','name','debit','credit','balance','parent_id','level','child_id', 'currency_id', 'company_currency_id'], ctx)
+        accounts = obj_account.read(self.cr, self.uid, ids, ['user_type','code','name','debit','credit','balance','parent_id','level','child_id', 'currency_id', 'company_currency_id'], ctx)
 
         for parent in parents:
             if parent in done:

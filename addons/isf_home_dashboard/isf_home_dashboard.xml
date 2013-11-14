@@ -100,9 +100,6 @@
     </record>
 
 
-    <!--
-              action="action_isf_home_dashboard_supplier_invoice"
-    -->
     <menuitem name="Supplier Invoice" 
               id="menu_isf_home_dashboard_supplier_invoice" 
               action="account.action_invoice_tree2"
@@ -163,8 +160,10 @@
         <field name="model">isf.home.dashboard.action</field>
         <field name="arch" type="xml">
             <tree string="Actions">
+                <field name="sequence" string="Sequence" />
                 <field name="name" string="Action name" />
                 <field name="action" string="Action"/>
+                <field name="group" string="Group"/>
             </tree>
         </field>
     </record>
@@ -177,7 +176,9 @@
                 <sheet>
                     <group colspan="4" col="2">
                         <field name="action" string="Action" widget="one2one_tags"/>
+                        <field name="group" string="Group" widget="one2one_tags"/>
                         <field name="name"/>
+                        <field name="sequence"/>
                         <field name="icon"/>
                         <field name="description"/>
                     </group>

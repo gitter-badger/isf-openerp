@@ -16,7 +16,8 @@ Add a customizable Home Tab
     'data': [
         'security/ir.model.access.csv',
         'security/ir_rule.xml',
-        'isf_home_dashboard.xml'
+        'isf_home_dashboard.xml',
+        'data/isf.home.dashboard.action.group.csv'
     ],
     'demo': [],
     'qweb' : [

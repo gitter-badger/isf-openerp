@@ -27,6 +27,7 @@ class ISFLoginManagerController(openerpweb.Controller):
 
     @openerpweb.jsonrequest
     def public(self, req, db_name =''):
+        raise NotImplementedError("Not implemented")
         res = None
         try:
             db_registry = openerp.modules.registry.RegistryManager.get(db_name)

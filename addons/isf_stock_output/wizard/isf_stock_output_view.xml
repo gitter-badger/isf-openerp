@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        <record id="isf_stock_output_form_view" model="ir.ui.view">
+			<field name="name">isf.stock.output.form</field>
+			<field name="model">isf.stock.output</field>
+			<field name="arch" type="xml">
+				<form string="Stock Output" version="7.0">
+                    <sheet string="Stock Output">
+                        <group cols="4">
+                            <group>
+                                <field name="ref" string="Document Number"/>
+                                <field name="date" string="Date"/>
+                                <field name="name" string="Description"/>
+                            </group>
+                            <group>
+                                <newline/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="asset_account" />
+                            <field name="expense_account" />
+                            <field name="analytic_account_display" invisible="1"/>
+                            <field name="analytic_account" attrs="{'invisible':[('analytic_account_display', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="currency" on_change="onchange_currency(currency)"/>
+                            <field name="currency_amount" on_change="onchange_amount(currency,currency_amount)"/>
+                            <field name="company_amount" />
+                        </group>
+                        <!-- Hidden fields -->
+                        <field name="journal_id" invisible="1" /> 
+                    </sheet>
+                    <footer>
+						<button 
+							name="stock_output" 
+							string="Save"
+							type="object" 
+							class="oe_highlight"/>
+						or
+						<button string="Cancel" class="oe_link" special="cancel"/>
+					</footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="isf_stock_output_tree_view" model="ir.ui.view">
+			<field name="name">isf.stock.output.tree</field>
+			<field name="model">isf.stock.output</field>
+			<field name="arch" type="xml">
+				<tree string="Stock Output">
+                    <field name="name" />
+					<field name="date" string="Date"/>
+					<field name="currency_amount" string="Currency Amount"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="isf_stock_output_search_view" model="ir.ui.view">
+			<field name="name">isf.stock.output.search</field>
+			<field name="model">isf.stock.output</field>
+			<field name="arch" type="xml">
+				<search string="Stock Output">
+                    <field name="name" />
+					<field name="date" string="Date"/>
+					<field name="currency_amount" string="Currency Amount"/>
+				</search>
+			</field>
+		</record>
+
+        <record id="isf_stock_output_config_form_view" model="ir.ui.view">
+			<field name="name">isf.stock.output.config.form</field>
+			<field name="model">isf.stock.output.config</field>
+			<field name="arch" type="xml">
+				<form string="Stock Output Config" version="7.0">
+                    <group>
+                        <separator colspan="4" string="Default Journal" />
+                        <field name="journal_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Account controls">
+                            <separator colspan="4" string="Asset Accounts" />
+                            <field name="asset_account" nolabel="1"/>
+                            <separator colspan="4" string="Expense Accounts" />
+                            <field name="expense_account" nolabel="1"/>
+                            <separator colspan="4" string="Analytic Accounts" />
+                            <field name="analytic_account" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="isf_stock_output_config_tree_view" model="ir.ui.view">
+			<field name="name">isf.stock.output.config.tree</field>
+			<field name="model">isf.stock.output.config</field>
+			<field name="arch" type="xml">
+				<tree string="Stock Output Config">
+                    <field name="journal_id" />
+					<field name="asset_account"/>
+                    <field name="expense_account"/>
+                    <field name="analytic_account"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="isf_stock_output_config_search_view" model="ir.ui.view">
+			<field name="name">isf.stock.output.config.search</field>
+			<field name="model">isf.stock.output.config</field>
+			<field name="arch" type="xml">
+				<search string="Stock Output Config">
+                    <field name="journal_id" />
+					<field name="asset_account"/>
+                    <field name="expense_account"/>
+                    <field name="analytic_account"/>
+				</search>
+			</field>
+		</record>
+
+		
+        <record model="ir.actions.act_window" id="action_isf_stock_output_wizard">
+			<field name="name">Stock Output</field>
+			<field name="res_model">isf.stock.output</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+			<field name="view_id" ref="isf_stock_output_form_view" />
+			<field name="context">{}</field>
+		</record>
+        
+        <record model="ir.actions.act_window" id="action_isf_stock_output_config">
+			<field name="name">Stock Output Config</field>
+			<field name="res_model">isf.stock.output.config</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="isf_stock_output_config_tree_view" />
+			<field name="context">{}</field>
+		</record>
+		
+        <menuitem 
+            name="Stock Output" 
+            parent="account.menu_finance_bank_and_cash" 
+            id="isf_stock_output_form_wizard" 
+            sequence="20" 
+            action="action_isf_stock_output_wizard"
+        />
+        
+        
+        <menuitem
+            name="Stock Output" 
+            parent="base.menu_config" 
+            id="isf_stock_output_parameters_menu" 
+            sequence="20" 
+            action="action_isf_stock_output_config"
+        />
+	
+        
+    </data>
+</openerp>

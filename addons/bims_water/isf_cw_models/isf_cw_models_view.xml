@@ -1,0 +1,377 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_isf_cw_zone_form">
+            <field name="name">isf.cw.zone.form</field>
+            <field name="model">isf.cw.zone</field>
+            <field name="arch" type="xml">
+                <form string="Zones" version="7.0">
+                    <sheet>
+                        <group colspan="4" col="2">
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="active"/>
+                            <field name="areas_id" widget="one2many_list">
+                                <tree string="Areas" editable="bottom">
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                    <field name="max_connections"/>
+                                </tree>
+                            </field>
+                        </group>
+                         <notebook>
+                             <page string="Meter Reader">
+                                <field name="meterreader_id" widget="one2many_list"/>
+                             </page>
+                             <page string="Contacts">
+                                <field name="partner_ids" widget="one2many_list"/>
+                             </page>
+                         </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_isf_cw_zone_tree">
+            <field name="name">isf.cw.zone.tree</field>
+            <field name="model">isf.cw.zone</field>
+            <field name="field_parent">areas_id</field>
+            <field name="arch" type="xml">
+                <tree string="Zones" toolbar="1">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record> 
+
+        <record model="ir.ui.view" id="view_isf_cw_zone_search">
+            <field name="name">isf.cw.zone.search</field>
+            <field name="model">isf.cw.zone</field>
+            <field name="arch" type="xml">
+                <search string="Zones">
+                    <field name="code" string="Zone"/>
+                    <field name="name" string="Zone"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_isf_cw_zone">
+            <field name="name">Zones</field>
+            <field name="res_model">isf.cw.zone</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_isf_cw_zone_search"/>
+        </record> 
+
+        <record model="ir.ui.view" id="view_isf_cw_area_form">
+            <field name="name">isf.cw.area.form</field>
+            <field name="model">isf.cw.zone.area</field>
+            <field name="arch" type="xml">
+                <form string="Areas" version="7.0">
+                    <sheet>
+                        <group colspan="4" col="2">
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="max_connections"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_isf_cw_area_tree">
+            <field name="name">isf.cw.area.tree</field>
+            <field name="model">isf.cw.zone.area</field>
+            <field name="arch" type="xml">
+                <tree string="Areas">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record> 
+
+        <record model="ir.ui.view" id="view_isf_cw_area_search">
+            <field name="name">isf.cw.area.search</field>
+            <field name="model">isf.cw.zone.area</field>
+            <field name="arch" type="xml">
+                <search string="Areas">
+                    <field name="code" string="Area Code"/>
+                    <field name="name" string="Area Name"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_isf_cw_area">
+            <field name="name">Area</field>
+            <field name="res_model">isf.cw.zone.area</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_isf_cw_area_search"/>
+        </record> 
+
+        <record model="ir.ui.view" id="view_isf_cw_flowmeter_tree">
+            <field name="name">isf.cw.flowmeter.tree</field>
+            <field name="model">isf.cw.flowmeter</field>
+            <field name="field_parent">child_ids</field>
+            <field name="arch" type="xml">
+                <tree string="Flow Meter" toolbar="1">
+                    <field name="name"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_isf_cw_flowmeter">
+            <field name="name">Flow Meter</field>
+            <field name="res_model">isf.cw.flowmeter</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_isf_cw_flowmeter_tree"/>
+        </record> 
+
+        <record model="ir.ui.view" id="view_isf_cw_customer_form">
+            <field name="name">isf.cw.customer.form</field>
+            <field name="model">res.partner</field>
+            <field name="priority">40</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_id']" position="replace" >
+                </xpath>
+                <group position="before">
+                    <group col="4">
+                        <field name="zone_id"/>
+                        <field name="area_id"/>
+                        <field name="supplyno"/>
+                    </group>
+                    <group>
+                        <field name="category_id" string="Category" widget="many2many_tags" />
+                    </group>
+                </group> 
+                <field name="is_company" position="replace">
+                    <field name="is_company" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_isf_cw_customer_tree">
+            <field name="name">isf.cw.customer.tree</field>
+            <field name="model">res.partner</field>
+            <field name="priority">10</field>
+            <field name="arch" type="xml">
+                <tree string="Customers">
+                    <field name="name" select="1"/>
+                    <field name="supplyno" select="1"/>
+                    <field name="zone_id" select="1"/>
+                    <field name="area_id" select="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_isf_cw_customer">
+            <field name="name">Customer</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('customer','=',True)]</field>
+            <field name="context">{'default_customer':1, 'search_default_customer':1}</field>
+            <field name="filter" eval="True"/>
+            <field name="view_id" ref="view_isf_cw_customer_tree"/>
+        </record> 
+
+        <record model="ir.ui.view" id="view_isf_cw_customergroup_form">
+            <field name="name">isf.cw.customergroup.form</field>
+            <field name="model">res.partner.category</field>
+            <field name="inherit_id" ref="base.view_partner_category_form" />
+            <field name="priority">10</field>
+            <field name="arch" type="xml">
+                <group position="inside">
+                    <field name="currency_id"/>
+                </group>
+                <xpath expr="//group" position="after" >
+                     <notebook>
+                         <page string="Tariff">
+                            <field name="tariff_id"/>
+                         </page>
+                         <page string="Charges">
+                            <field name="charge_id"/>
+                         </page>
+                     </notebook>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_isf_cw_customergroup_tree">
+            <field name="name">isf.cw.customergroup.tree</field>
+            <field name="model">res.partner.category</field>
+            <field name="priority">10</field>
+            <field name="arch" type="xml">
+                <tree string="Customer Categories">
+                    <field name="name"/>
+                    <field name="active"/>
+                    <field name="currency_id"/>
+                    <field name="charge_id"/>
+                    <field name="tariff_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_isf_cw_customergroup">
+            <field name="name">Customer Groups</field>
+            <field name="res_model">res.partner.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_isf_cw_customergroup_tree"/>
+        </record> 
+
+        <record model="ir.ui.view" id="view_isf_cw_meterreader_tree">
+            <field name="name">isf.cw.meterreader.tree</field>
+            <field name="model">hr.employee</field>
+            <field name="priority" eval="42"/>
+            <field name="arch" type="xml">
+                <tree string="Meter Reader">
+                    <field name="name" select="1"/>
+                    <field name="zone_id" select="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_isf_cw_meterreader_form">
+            <field name="name">isf.cw.meterreader.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form" />
+            <field name="priority">10</field>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Public Information']" position="before" >
+                    <page string="Assignment">
+                        <group>
+                            <group string="Zones">
+                                <field name="zone_id" select="1"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_isf_cw_meterreader_search">
+            <field name="name">isf.cw.meterreader.form</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <search string="Meter Reader">
+                    <field name="name"/>
+                    <field name="category_ids"/>
+                    <field name="job_id" filter_domain="[('job_id', 'ilike', 'Meter Reader')]"/>
+                </search>
+            </field>
+        </record>
+ 
+        <record model="ir.actions.act_window" id="action_isf_cw_meterreader">
+            <field name="name">Meter Reader</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('job_id','ilike', 'Meter Reader')]</field>
+            <field name="view_id" ref="view_isf_cw_meterreader_tree"/>
+            <field name="search_view_id" ref="view_isf_cw_meterreader_search"/>
+        </record> 
+
+        <record model="ir.actions.act_window" id="action_isf_cw_supply">
+            <field name="name">Water Supply Contract</field>
+            <field name="res_model">isf.cw.supply</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record> 
+
+        <record model="ir.actions.act_window" id="action_isf_cw_reading">
+            <field name="name">Readings</field>
+            <field name="res_model">isf.cw.flowmeter.reading</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record> 
+
+        <record model="ir.ui.view" id="view_isf_cw_tariff_form">
+            <field name="name">isf.cw.tariff.form</field>
+            <field name="model">isf.cw.tariff</field>
+            <field name="arch" type="xml">
+                <form string="Zones" version="7.0">
+                    <sheet>
+                        <group colspan="4" >
+                            <field name="name"/>
+                            <field name="currency_id"/>
+                            <field name="unit_id"/>
+                            <field name="state" invisible="1"/>
+                            <field name="partner_category_id"/>
+                        </group>
+                         <notebook>
+                             <page string="Ranges">
+                                <field name="range_ids" widget="one2many_list">
+                                    <tree string="Ranges" editable="bottom">
+                                        <field name="from"/>
+                                        <field name="to"/>
+                                        <field name="price_unit"/>
+                                    </tree>
+                                </field>
+                             </page>
+                         </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_isf_cw_tariff">
+            <field name="name">Tariff</field>
+            <field name="res_model">isf.cw.tariff</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record> 
+
+        <record model="ir.actions.act_window" id="action_isf_cw_charges">
+            <field name="name">Charges</field>
+            <field name="res_model">product.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record> 
+ 
+        <record id="hr.job_meterreader" model="hr.job">
+            <field name="name">Meter Reader</field>
+        </record>
+
+        <record id="hr.job_cashier" model="hr.job">
+            <field name="name">Cashier</field>
+        </record>
+ 
+        <record id="hr.job_plumber" model="hr.job">
+            <field name="name">Plumber</field>
+        </record>
+
+        <record id="hr.job_billcollector" model="hr.job">
+            <field name="name">Bill Collector</field>
+        </record>
+                 
+        <!--record id="base.res_partner_category_business" model="res.partner.category">
+            <field name="name">Business</field>
+        </record>
+
+        <record id="base.res_partner_category_plumber" model="res.partner.category">
+            <field name="name">Plumber</field>
+        </record-->
+
+        <menuitem name="Bims Water" id="isf_cw_menu" sequence="0" />
+        <menuitem name="Transactions" parent="isf_cw_menu" id="isf_cw_menu_trans" sequence="10" />
+        <menuitem name="Record Monthly Meter Reading" parent="isf_cw_menu_trans" id="isf_cw_menu_monthlyreading" />
+        <menuitem name="Record Daily Meter Reading" parent="isf_cw_menu_trans" id="isf_cw_menu_monthlyreading" />
+        <menuitem name="Kiosk" parent="isf_cw_menu_trans" id="isf_cw_menu_kiosk" />
+        <menuitem name="Record Reading One by One" parent="isf_cw_menu_kiosk" id="isf_cw_menu_kiosk_onebyone" />
+        <menuitem name="Generate Bills" parent="isf_cw_menu_trans" id="isf_cw_menu_generatebills" />
+        <menuitem name="Configuration" parent="isf_cw_menu" id="isf_cw_menu_config" sequence="20" />
+        <menuitem name="Zones" parent="isf_cw_menu_config" id="menu_isf_cw_zone" action="action_isf_cw_zone" /> 
+        <menuitem name="Flow Meter" parent="isf_cw_menu_config" id="menu_isf_cw_flowmeter" action="action_isf_cw_flowmeter" />
+        <menuitem name="Supply" parent="isf_cw_menu_config" id="menu_isf_cw_supply" action="action_isf_cw_supply" />
+        <menuitem name="Readings" parent="isf_cw_menu_config" id="menu_isf_cw_readings" action="action_isf_cw_reading" />
+        <menuitem name="Customer" parent="isf_cw_menu_config" id="menu_isf_cw_customer" action="action_isf_cw_customer" />
+        <menuitem name="Customer Groups" parent="isf_cw_menu_config" id="menu_isf_cw_customergroup" action="action_isf_cw_customergroup" />
+        <menuitem name="Meter Reader" parent="isf_cw_menu_config" id="menu_isf_cw_meterreader" action="action_isf_cw_meterreader" />
+        <menuitem name="Charges" parent="isf_cw_menu_config" id="menu_isf_cw_charges" action="action_isf_cw_charges" />
+        <menuitem name="Tariff" parent="isf_cw_menu_config" id="menu_isf_cw_tariff" action="action_isf_cw_tariff" />
+    </data>
+</openerp>

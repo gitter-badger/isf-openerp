@@ -14,20 +14,31 @@
     <menuitem name="Home" 
               sequence="0"
               id="menu_isf_home_dashboard" 
-              groups="base.group_user,account.group_account_user,account.group_account_manager" />
+              groups="base.group_user" />
 
     <!-- client action -->
     <menuitem name="Home" 
               id="menu_isf_home_dashboard_start" 
               parent="menu_isf_home_dashboard" 
-              groups="base.group_user,account.group_account_user,account.group_account_manager" />
+              groups="base.group_user" />
 
+    <record id="view_isf_home_dashboard_start_homeboard" model="ir.ui.view">
+        <field name="name">isf.home.dashboard.action.start.homeboard</field>
+        <field name="model">isf.home.dashboard.action</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <form version="7.0" string="Home Dashboard" title="Home Dashboard" edit="false" create="false" delete="false">
+                <isf-home-dashboard collapse="false" sortable="false" />
+            </form>
+        </field>
+    </record>
+ 
     <record id="view_isf_home_dashboard_start" model="ir.ui.view">
         <field name="name">isf.home.dashboard.action.start.kanban</field>
         <field name="model">isf.home.dashboard.action</field>
-        <field name="type">kanban</field>
         <field name="arch" type="xml">
-            <kanban create="false" delete="false">
+            <!--kanban create="false" delete="false" default_group_by="group" edit="false" quick_create="false"-->
+            <kanban create="false" delete="false" edit="false" quick_create="false">
                 <field name="icon"/>
                 <field name="name"/>
                 <field name="action"/>
@@ -61,26 +72,26 @@
         <!--field name="res_model">ir.actions.actions</field-->
         <field name="res_model">isf.home.dashboard.action</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="view_type">tree</field>
-        <field name="view_mode">kanban,tree</field>
-        <field name="view_id" ref="view_isf_home_dashboard_start"/>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_isf_home_dashboard_start_homeboard"/>
     </record>
 
     <menuitem name="Start" 
               id="menu_isf_home_dashboard_start_start" 
               parent="menu_isf_home_dashboard_start" 
               action="action_isf_home_dashboard_start"
-              groups="account.group_account_user,account.group_account_manager" />
+              groups="base.group_user" />
 
     <menuitem name="Operations" 
               id="menu_isf_home_dashboard_operations" 
               parent="menu_isf_home_dashboard" 
-              groups="account.group_account_user,account.group_account_manager" />
+              groups="base.group_user" />
 
     <menuitem name="Bank Transfer" 
               id="menu_isf_home_dashboard_banktransfer" 
               parent="menu_isf_home_dashboard_operations" 
-              groups="account.group_account_user,account.group_account_manager" />
+              groups="base.group_user" />
 
     <!--
               action="action_isf_home_dashboard_customer_invoice"
@@ -89,7 +100,7 @@
               id="menu_isf_home_dashboard_customer_invoice" 
               action="account.action_invoice_tree1"
               parent="menu_isf_home_dashboard_operations" 
-              groups="account.group_account_user,account.group_account_manager" />
+              groups="base.group_user" />
 
     <record id="action_isf_home_dashboard_customer_invoice" model="ir.actions.act_window" >
         <field name="name">Customer Invoice</field>
@@ -104,7 +115,7 @@
               id="menu_isf_home_dashboard_supplier_invoice" 
               action="account.action_invoice_tree2"
               parent="menu_isf_home_dashboard_operations" 
-              groups="account.group_account_user,account.group_account_manager" />
+              groups="base.group_user" />
 
     <record id="action_isf_home_dashboard_supplier_invoice" model="ir.actions.act_window" >
         <field name="name">Supplier invoice</field>
@@ -117,19 +128,19 @@
     <menuitem name="Reports" 
               id="menu_isf_home_dashboard_reports" 
               parent="menu_isf_home_dashboard" 
-              groups="account.group_account_user,account.group_account_manager" />
+              groups="base.group_user" />
 
     <menuitem name="General Ledger" 
               id="menu_isf_home_dashboard_generalledger" 
               parent="menu_isf_home_dashboard_reports" 
               action="account.action_account_general_ledger_menu"
-              groups="account.group_account_user,account.group_account_manager" />
+              groups="base.group_user" />
 
     <menuitem name="Journal Entry" 
               id="menu_isf_home_dashboard_journalentry" 
               parent="menu_isf_home_dashboard_reports" 
               action="account.action_move_journal_line"
-              groups="account.group_account_user,account.group_account_manager" />
+              groups="base.group_user" />
 
     <record id="action_isf_home_dashboard_journalentry" model="ir.actions.act_window" >
         <field name="name">Journal Entry</field>
@@ -142,7 +153,7 @@
     <menuitem name="Chart of Accounts" 
               id="menu_isf_home_dashboard_coa" 
               parent="menu_isf_home_dashboard_reports" 
-              groups="account.group_account_user,account.group_account_manager" />
+              groups="base.group_user" />
 
     <record model="ir.ui.view" id="view_isf_home_dashboard_action_search">
             <field name="name">isf.home.dashboard.action.search</field>
@@ -163,7 +174,7 @@
                 <field name="sequence" string="Sequence" />
                 <field name="name" string="Action name" />
                 <field name="action" string="Action"/>
-                <field name="group" string="Group"/>
+                <!--field name="group" string="Group"/-->
             </tree>
         </field>
     </record>
@@ -176,8 +187,8 @@
                 <sheet>
                     <group colspan="4" col="2">
                         <field name="action" string="Action" widget="one2one_tags"/>
-                        <field name="group" string="Group" widget="one2one_tags"/>
                         <field name="name"/>
+                        <field name="group"/>
                         <field name="sequence"/>
                         <field name="icon"/>
                         <field name="description"/>
@@ -195,12 +206,100 @@
         <field name="multi">True</field>
         <field name="search_view_id" ref="view_isf_home_dashboard_action_search"/>
     </record>
-          
+
+    <record model="ir.ui.view" id="view_isf_home_dashboard_action_group_form">
+        <field name="name">isf.home.dashboard.action.group.form</field>
+        <field name="model">isf.home.dashboard.action.group</field>
+        <field name="arch" type="xml">
+            <form string="Actions" version="7.0">
+                <sheet>
+                    <group colspan="4" col="2">
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="sequence"/>
+                        <field name="actions" widget="one2many_list"/>
+                    </group>
+                    <notebook>
+                        <page string="Security">
+                            <!--field name="groups_id"/-->
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_isf_home_dashboard_action_group_tree">
+        <field name="name">isf.home.dashboard.action.group.tree</field>
+        <field name="model">isf.home.dashboard.action.group</field>
+        <field name="arch" type="xml">
+            <tree string="Action Groups">
+                <field name="name" string="Group name" />
+                <field name="sequence" string="Sequence" />
+                <field name="actions" string="Actions"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_isf_home_dashboard_configgroups">
+        <field name="name">Home Dashboard Groups</field>
+        <field name="res_model">isf.home.dashboard.action.group</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="multi">True</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_isf_home_dashboard_action_tree">
+        <field name="name">isf.home.dashboard.action.tree</field>
+        <field name="model">isf.home.dashboard.action</field>
+        <field name="arch" type="xml">
+            <tree string="Actions">
+                <field name="name" string="Name" />
+                <field name="sequence" string="Sequence" />
+                <field name="group" string="Group"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_isf_home_dashboard_configactions">
+        <field name="name">Home Dashboard Actions</field>
+        <field name="res_model">isf.home.dashboard.action</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="multi">True</field>
+    </record>
+
+    <!--record model="ir.actions.act_window" id="action_isf_home_dashboard_configmenu">
+        <field name="name">Home Dashboard Menu</field>
+        <field name="res_model">ir.ui.menu</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[("parent_id", "=", menu_isf_home_dashboard)]</field>
+    </record-->
+
     <menuitem name="Home Actions" 
-              id="menu_isf_home_dashboard_configactions" 
+              id="menu_isf_home_dashboard_config" 
               parent="base.menu_config"
-              action="action_isf_home_dashboard_configactions"
                />
 
+    <menuitem name="Groups" 
+              id="menu_isf_home_dashboard_configgroups" 
+              parent="menu_isf_home_dashboard_config"
+              action="action_isf_home_dashboard_configgroups"
+              />
+
+    <menuitem name="Actions" 
+              id="menu_isf_home_dashboard_configctions" 
+              parent="menu_isf_home_dashboard_config"
+              action="action_isf_home_dashboard_configactions"
+              />
+
+    <!--menuitem name="Menu" 
+              id="menu_isf_home_dashboard_configmenu" 
+              parent="menu_isf_home_dashboard_config"
+              action="action_isf_home_dashboard_configmenu"
+              /-->
+ 
   </data>
 </openerp>
